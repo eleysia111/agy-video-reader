@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AGY Video Reader 设置</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: var(--color-background-primary, #ffffff);
+  --bg-card: var(--color-background-secondary, rgba(127, 127, 160, 0.08));
+  --text: var(--color-text-primary, #18181b);
+  --muted: var(--color-text-secondary, #71717a);
+  --border: var(--color-border-primary, rgba(127, 127, 160, 0.22));
+  --accent: #6366f1;
+  --accent-2: #a855f7;
+  --pink: #ec4899;
+  --gold: #f59e0b;
+  --danger: #ef4444;
+  --success: #10b981;
+  --radius: 12px;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 14px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+}
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.13), rgba(168, 85, 247, 0.10) 65%, rgba(236, 72, 153, 0.08));
+}
+.hero-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 17px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.28);
+}
+.hero h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.hero p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.pill {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  padding: 12px 14px;
+  display: grid;
+  gap: 12px;
+}
+.card-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.field label {
+  font-weight: 550;
+}
+.val {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  color: var(--accent);
+}
+.hint {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.seg {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 6px;
+}
+.seg button {
+  padding: 7px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+.seg button:hover {
+  border-color: var(--accent);
+}
+.seg button.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+}
+.quick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.chip:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 420px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+.num-input {
+  width: 100%;
+  padding: 6px 9px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+.cache-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cache-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 8px 14px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.14s ease, border-color 0.14s ease;
+}
+.btn:hover { border-color: var(--accent); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  border-color: transparent;
+}
+.btn-danger {
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--danger);
+}
+#toast {
+  font-size: 12px;
+  min-height: 18px;
+  color: var(--muted);
+}
+#toast.ok { color: var(--success); }
+#toast.err { color: var(--danger); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="badge" aria-hidden="true">▶</div>
+      <div>
+        <h1>AGY Video Reader 设置</h1>
+        <p>实时调整视频时长阈值、画质上限、体积限制与缓存策略</p>
+      </div>
+    </div>
+    <span class="pill" id="envBadge">连接中…</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">视频与画质限制</div>
+
+    <div class="field">
+      <div class="field-head">
+        <label for="maxDuration">单次最大允许时长</label>
+        <span class="val" id="maxDurationVal">300 秒 (05:00)</span>
+      </div>
+      <input id="maxDuration" type="range" min="30" max="1800" step="30" value="300">
+      <div class="quick-row">
+        <button type="button" class="chip" data-dur="180">3 分钟</button>
+        <button type="button" class="chip" data-dur="300">5 分钟 (默认)</button>
+        <button type="button" class="chip" data-dur="600">10 分钟</button>
+        <button type="button" class="chip" data-dur="1200">20 分钟</button>
+      </div>
+      <div class="hint">超过此时长时自动拒绝全量下载，提示先看字幕/热评或切片读取。</div>
+    </div>
+
+    <div class="field">
+      <div class="field-head">
+        <label>最大下载分辨率</label>
+        <span class="val" id="maxHeightVal">480p</span>
+      </div>
+      <div class="seg" id="heightSeg">
+        <button type="button" data-val="360">360p 省流</button>
+        <button type="button" data-val="480" class="active">480p 推荐</button>
+        <button type="button" data-val="720">720p 高清</button>
+        <button type="button" data-val="1080">1080p 超清</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="field-head">
+        <label for="maxSize">单视频体积上限 (超出自动压制)</label>
+        <span class="val" id="maxSizeVal">25 MB</span>
+      </div>
+      <input id="maxSize" type="range" min="5" max="100" step="5" value="25">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">读取模式与评论区</div>
+
+    <div class="field">
+      <div class="field-head">
+        <label>默认读取模式</label>
+        <span class="val" id="defaultModeVal">auto</span>
+      </div>
+      <div class="seg" id="modeSeg">
+        <button type="button" data-val="auto" class="active">Auto (推荐)</button>
+        <button type="button" data-val="video">仅轻量视频</button>
+        <button type="button" data-val="frames_and_text">关键帧 + 字幕</button>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <div class="field-head">
+          <label for="keyframeCount">关键帧抽取张数</label>
+          <span class="val" id="keyframeCountVal">8 张</span>
+        </div>
+        <input id="keyframeCount" type="range" min="4" max="20" step="1" value="8">
+      </div>
+      <div class="field">
+        <div class="field-head">
+          <label for="commentLimit">默认热评条数</label>
+          <span class="val" id="commentLimitVal">30 条</span>
+        </div>
+        <input id="commentLimit" type="range" min="5" max="50" step="5" value="30">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">本地缓存与 LRU 淘汰</div>
+    <div class="grid-2">
+      <div class="field">
+        <label for="cacheMaxMb">缓存容量上限 (MB)</label>
+        <input id="cacheMaxMb" class="num-input" type="number" min="50" max="2048" step="50" value="300">
+      </div>
+      <div class="field">
+        <label for="cacheMaxHours">缓存保留时长 (小时)</label>
+        <input id="cacheMaxHours" class="num-input" type="number" min="1" max="168" step="1" value="24">
+      </div>
+    </div>
+    <div class="cache-bar">
+      <span class="cache-meta" id="cacheStats">缓存状态：读取中…</span>
+      <button type="button" class="btn btn-danger" id="clearCacheBtn">一键清空缓存</button>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div id="toast" aria-live="polite"></div>
+    <div class="btn-group">
+      <button type="button" class="btn" id="resetBtn">恢复默认</button>
+      <button type="button" class="btn btn-primary" id="saveBtn">保存设置</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const pending = new Map();
+let rpcId = 0;
+
+let state = {
+  max_duration_seconds: 300,
+  max_height: 480,
+  max_size_mb: 25,
+  default_mode: "auto",
+  keyframe_count: 8,
+  default_comment_limit: 30,
+  cache_max_entries: 12,
+  cache_max_mb: 300,
+  cache_max_age_hours: 24,
+};
+
+function fmtDur(sec) {
+  const s = Math.max(0, Math.round(sec));
+  const m = Math.floor(s / 60);
+  const r = s % 60;
+  return `${s} 秒 (${String(m).padStart(2, "0")}:${String(r).padStart(2, "0")})`;
+}
+
+function setToast(msg, kind = "") {
+  const el = $("toast");
+  el.textContent = msg;
+  el.className = kind;
+}
+
+function applyHostContext(ctx) {
+  if (!ctx) return;
+  if (ctx.theme) {
+    document.documentElement.dataset.theme = ctx.theme;
+    document.documentElement.style.colorScheme = ctx.theme;
+  }
+  const vars = ctx.styles && ctx.styles.variables;
+  if (vars && typeof vars === "object") {
+    for (const [k, v] of Object.entries(vars)) {
+      if (typeof v === "string") document.documentElement.style.setProperty(k, v);
+    }
+  }
+}
+
+function notifySize() {
+  const h = Math.min(800, Math.max(360, document.documentElement.scrollHeight));
+  parent.postMessage({
+    jsonrpc: "2.0",
+    method: "ui/notifications/size-changed",
+    params: { height: h },
+  }, "*");
+}
+
+function sendRequest(method, params) {
+  const id = ++rpcId;
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      pending.delete(id);
+      reject(new Error("请求超时"));
+    }, 20000);
+    pending.set(id, { resolve, reject, timer });
+    parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
+  });
+}
+
+async function callTool(name, args = {}) {
+  const res = await sendRequest("tools/call", { name, arguments: args });
+  if (res && res.isError) {
+    throw new Error((res.content && res.content[0] && res.content[0].text) || "工具调用失败");
+  }
+  if (res && res.structuredContent) return res.structuredContent;
+  const txt = res && res.content && res.content[0] && res.content[0].text;
+  return txt ? JSON.parse(txt) : {};
+}
+
+function renderState() {
+  $("maxDuration").value = state.max_duration_seconds;
+  $("maxDurationVal").textContent = fmtDur(state.max_duration_seconds);
+
+  $("maxHeightVal").textContent = `${state.max_height}p`;
+  document.querySelectorAll("#heightSeg button").forEach(btn => {
+    btn.classList.toggle("active", Number(btn.dataset.val) === Number(state.max_height));
+  });
+
+  $("maxSize").value = state.max_size_mb;
+  $("maxSizeVal").textContent = `${state.max_size_mb} MB`;
+
+  $("defaultModeVal").textContent = state.default_mode;
+  document.querySelectorAll("#modeSeg button").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.val === state.default_mode);
+  });
+
+  $("keyframeCount").value = state.keyframe_count;
+  $("keyframeCountVal").textContent = `${state.keyframe_count} 张`;
+
+  $("commentLimit").value = state.default_comment_limit;
+  $("commentLimitVal").textContent = `${state.default_comment_limit} 条`;
+
+  $("cacheMaxMb").value = state.cache_max_mb;
+  $("cacheMaxHours").value = state.cache_max_age_hours;
+  notifySize();
+}
+
+function renderPayload(data) {
+  if (!data || typeof data !== "object") return;
+  if (data.settings) {
+    state = { ...state, ...data.settings };
+    renderState();
+  }
+  if (data.cache) {
+    $("cacheStats").textContent =
+      `当前缓存：${data.cache.entry_count} 条记录 · ${data.cache.total_mb} MB`;
+  }
+  if (typeof data.ffmpeg_available === "boolean") {
+    const cookieText = data.used_cookies ? " · 已加载 Cookies" : "";
+    $("envBadge").textContent =
+      (data.ffmpeg_available ? "FFmpeg 就绪" : "缺少 FFmpeg") + cookieText;
+  }
+}
+
+window.addEventListener("message", event => {
+  if (event.source !== parent) return;
+  const msg = event.data;
+  if (!msg || msg.jsonrpc !== "2.0") return;
+
+  if (msg.id !== undefined && pending.has(msg.id)) {
+    const { resolve, reject, timer } = pending.get(msg.id);
+    clearTimeout(timer);
+    pending.delete(msg.id);
+    if (msg.error) reject(new Error(msg.error.message || "RPC Error"));
+    else resolve(msg.result);
+    return;
+  }
+
+  if (msg.method === "ui/notifications/host-context-changed") {
+    applyHostContext(msg.params);
+  } else if (msg.method === "ui/notifications/tool-result") {
+    const sc = msg.params && msg.params.structuredContent;
+    if (sc) renderPayload(sc);
+  }
+});
+
+// Bind controls
+$("maxDuration").addEventListener("input", e => {
+  state.max_duration_seconds = Number(e.target.value);
+  $("maxDurationVal").textContent = fmtDur(state.max_duration_seconds);
+});
+document.querySelectorAll(".chip[data-dur]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    state.max_duration_seconds = Number(btn.dataset.dur);
+    renderState();
+  });
+});
+document.querySelectorAll("#heightSeg button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    state.max_height = Number(btn.dataset.val);
+    renderState();
+  });
+});
+$("maxSize").addEventListener("input", e => {
+  state.max_size_mb = Number(e.target.value);
+  $("maxSizeVal").textContent = `${state.max_size_mb} MB`;
+});
+document.querySelectorAll("#modeSeg button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    state.default_mode = btn.dataset.val;
+    renderState();
+  });
+});
+$("keyframeCount").addEventListener("input", e => {
+  state.keyframe_count = Number(e.target.value);
+  $("keyframeCountVal").textContent = `${state.keyframe_count} 张`;
+});
+$("commentLimit").addEventListener("input", e => {
+  state.default_comment_limit = Number(e.target.value);
+  $("commentLimitVal").textContent = `${state.default_comment_limit} 条`;
+});
+$("cacheMaxMb").addEventListener("change", e => {
+  state.cache_max_mb = Number(e.target.value) || 300;
+});
+$("cacheMaxHours").addEventListener("change", e => {
+  state.cache_max_age_hours = Number(e.target.value) || 24;
+});
+
+$("saveBtn").addEventListener("click", async () => {
+  $("saveBtn").disabled = true;
+  setToast("正在保存…");
+  try {
+    const res = await callTool("update_settings", {
+      max_duration_seconds: state.max_duration_seconds,
+      max_height: state.max_height,
+      max_size_mb: state.max_size_mb,
+      default_mode: state.default_mode,
+      keyframe_count: state.keyframe_count,
+      default_comment_limit: state.default_comment_limit,
+      cache_max_mb: state.cache_max_mb,
+      cache_max_age_hours: state.cache_max_age_hours,
+    });
+    renderPayload(res);
+    setToast("设置已保存并即时生效！", "ok");
+  } catch (err) {
+    setToast("保存失败：" + err.message, "err");
+  } finally {
+    $("saveBtn").disabled = false;
+  }
+});
+
+$("resetBtn").addEventListener("click", async () => {
+  $("resetBtn").disabled = true;
+  setToast("正在恢复默认…");
+  try {
+    const res = await callTool("update_settings", { reset: true });
+    renderPayload(res);
+    setToast("已恢复默认配置", "ok");
+  } catch (err) {
+    setToast("恢复失败：" + err.message, "err");
+  } finally {
+    $("resetBtn").disabled = false;
+  }
+});
+
+$("clearCacheBtn").addEventListener("click", async () => {
+  $("clearCacheBtn").disabled = true;
+  setToast("正在清理缓存…");
+  try {
+    const res = await callTool("cleanup_cache", {});
+    const fresh = await callTool("open_settings", {});
+    renderPayload(fresh);
+    setToast(`已清理 ${res.removed_entries ?? 0} 条缓存（释放 ${res.removed_mb ?? 0} MB）`, "ok");
+  } catch (err) {
+    setToast("清理失败：" + err.message, "err");
+  } finally {
+    $("clearCacheBtn").disabled = false;
+  }
+});
+
+async function bootstrap() {
+  renderState();
+  try {
+    const initRes = await sendRequest("ui/initialize", {
+      protocolVersion: "2026-01-26",
+      appInfo: { name: "agy-video-reader-settings", version: "0.2.0" },
+      appCapabilities: {},
+    });
+    applyHostContext(initRes && initRes.hostContext);
+    parent.postMessage({
+      jsonrpc: "2.0",
+      method: "ui/notifications/initialized",
+      params: {},
+    }, "*");
+    const data = await callTool("open_settings", {});
+    renderPayload(data);
+  } catch (err) {
+    $("envBadge").textContent = "预览模式";
+    setToast("等待宿主连接：" + err.message);
+  } finally {
+    notifySize();
+  }
+}
+
+bootstrap();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "agy-video-reader",
+  "displayName": "AGY Video Reader",
+  "version": "0.3.0",
+  "author": "eleysia111",
+  "homepage": "https://github.com/eleysia111/agy-video-reader",
+  "repository": "https://github.com/eleysia111/agy-video-reader",
+  "description": "甩网页视频链接即可让 Agent 看视频、读字幕与刷评论区（支持 B站热评与高能弹幕、可视化参数设置面板、轻量压制与带时间戳故事板，Antigravity × DSH 鱼猫通用）。",
+  "logo": "assets/logo.png",
+  "suggestedPrompts": [
+    "帮我看看这个 B站视频讲了什么，再顺便总结一下评论区热评",
+    "先检查这个长视频的元信息和字幕，再切片看第 1 到 3 分钟",
+    "清理一下视频读取插件的本地缓存"
+  ]
+}

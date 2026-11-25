@@ -1,0 +1,33 @@
+# DeepSeek Harness (DSH) MCP 挂载示例
+# ------------------------------------------------------------------
+# 方式 1：放入 DSH Profile 配置（使用官方 @deepseek-ai/dsh-mcp-client）
+# ------------------------------------------------------------------
+- id: mcp-agy-video-reader
+  name: '@deepseek-ai/dsh-mcp-client'
+  config:
+    serverName: agy-video-reader
+    transport: stdio
+    command: uv
+    args:
+      - run
+      - --directory
+      - /absolute/path/to/agy-video-reader
+      - python
+      - -m
+      - agy_video_reader.server
+    env:
+      # DSH 下默认走“关键帧故事板 + 字幕”模式，不与本机 Antigravity 的 video 模式冲突
+      AGY_VIDEO_DEFAULT_MODE: frames_and_text
+      # 开启后直接以 MCP ImageContent 返回带时间戳的网格故事板拼图（支持视觉模型一次直看）
+      AGY_VIDEO_INLINE_STORYBOARD: '1'
+
+# ------------------------------------------------------------------
+# 方式 2：若使用 dsh-project-mcp-manager，可直接放入项目 .dsh/mcp.yml
+# ------------------------------------------------------------------
+# mcpServers:
+#   agy-video-reader:
+#     command: uv
+#     args: ['run', '--directory', '/absolute/path/to/agy-video-reader', 'python', '-m', 'agy_video_reader.server']
+#     env:
+#       AGY_VIDEO_DEFAULT_MODE: frames_and_text
+#       AGY_VIDEO_INLINE_STORYBOARD: '1'

@@ -1,0 +1,10 @@
+.venv/
+cache/
+cookies.txt
+settings.json
+uv.lock
+__pycache__/
+*.pyc
+*.egg-info/
+.DS_Store
+Thumbs.db

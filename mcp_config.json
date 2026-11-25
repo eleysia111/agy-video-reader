@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "agy-video-reader": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${PLUGIN_ROOT}",
+        "python",
+        "-m",
+        "agy_video_reader.server"
+      ]
+    }
+  }
+}

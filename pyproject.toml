@@ -1,0 +1,21 @@
+[project]
+name = "agy-video-reader"
+version = "0.3.0"
+description = "Antigravity & cross-agent MCP plugin for inspecting, watching, and reading comments of web videos (Bilibili, YouTube, etc.)."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]>=1.6.0",
+    "yt-dlp>=2025.1.15",
+    "bilibili-api-python>=17.1.0",
+    "httpx>=0.28.0",
+    "imageio-ffmpeg>=0.6.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agy_video_reader"]
